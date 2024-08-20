@@ -10,7 +10,7 @@ import Testimonials from './Testimonials';
 import  Register from './register';
 import Login from './signin';
 import Footer from './footer';
-function Appp() {
+function App() {
   // const cars=['Select an Option','Audi','Toyota','Tavera','Xylo'];
   const [cars,setCars]=useState([]);
   const [location,setLocation]=useState([]);
