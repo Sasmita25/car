@@ -35,7 +35,7 @@ export default function Login({CloseLoginForm,setDisplayName,setShowUser}){
         const loginUser = response.data.find(user => user.username === loginDetails.userName);
         const loginPassword = response.data.find(pass=>pass.password === loginDetails.pass); 
         if(loginUser && loginPassword){
-        console.log("Response: Booking successful",loginPassword);
+        alert("Response: Signed in successfully");
         setDisplayName(loginUser.username);
         setShowUser(true);
         CloseLoginForm();
