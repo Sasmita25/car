@@ -97,7 +97,7 @@ export default function Register({CloseRegForm}){
       const response = await axios.post("https://carbackend-three.vercel.app/api/Regdata", formData);
       if (response.status === 200) {
         CloseRegForm();
-        console.log("Response: Booking successful");
+        alert("Response: Booking successful");
       } else {
         console.error("Error: Unsuccessful response", response);
       }
