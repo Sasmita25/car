@@ -1,4 +1,4 @@
-import cars from "./images/c.png";
+import cars from "./images/nissa.png";
 import caric from './images/dollar.png';
 import spk from './images/self-driving.png';
 

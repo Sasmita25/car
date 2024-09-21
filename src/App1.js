@@ -1,7 +1,7 @@
 import './index.css';
-import car from './images/carr.png';
+import car from './images/cretaa.png';
 import logo from './images/logo.png';
-import { useState,useEffect } from 'react';
+import { useState,useEffect,createContext,useReducer} from 'react';
 import axios from 'axios';
 import Form from './form';
 import Plan from './Plan';
@@ -10,6 +10,7 @@ import Testimonials from './Testimonials';
 import  Register from './register';
 import Login from './signin';
 import Footer from './footer';
+export const Cprovider=createContext();
 function App() {
   // const cars=['Select an Option','Audi','Toyota','Tavera','Xylo'];
   const [cars,setCars]=useState([]);
@@ -25,9 +26,18 @@ function App() {
   const [showLoginForm,setShowLoginForm]=useState(false);
   const [showUser,setShowUser]=useState(false);
 
-  const [displayName,setDisplayName]=useState("");
 
+  
   const [carMessage,setCarMessage]=useState("");
+  // const [caMessage,dispatch]=useReducer(reducer,"");
+  const [displayName,setDisplayName]=useState("");
+  // function reducer(state,action){
+  //   switch(action.type){
+  //     case "dec":
+  //     setCarMessage(action.payload)
+  //   }
+    
+  // }
   const [locationPickMsg,setLocationPickMsg]=useState("");
   const [locationDropMsg,setLocationDropMsg]=useState("");
   const [datePickMsg,setDatePickMsg]=useState("");
@@ -36,7 +46,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5002/api/Model');
+        const response = await axios.get('https://carbackend-three.vercel.app/api/Model');
         setCars(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -49,7 +59,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5002/api/Location');
+        const response = await axios.get('https://carbackend-three.vercel.app/api/Location');
         setLocation(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -72,6 +82,7 @@ function App() {
 
     if (selectCar === '--Select the car model--') {
       setCarMessage("* Please select the model type");
+      // dispatch({type:"dec",payload:"sasasas"});
     }
     if (selectPickUp === '--Select the pickup location--') {
       setLocationPickMsg('* Please select the pickup location');
@@ -120,9 +131,10 @@ function App() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <div className={` ${showForm ? "pointer-events-none " : ""} w-full overflow-hidden`}>
-      <div>
+      {/* <div> */}
       <nav className="flex items-center justify-between text-lg flex-wrap p-6 bg-gray-100 ">
   <div className="flex items-center flex-shrink-0 mr-6">
     <img src={logo} className="h-14 mr-2" alt="TOYO RENTAL Logo" />
@@ -172,18 +184,18 @@ function App() {
   </div>
 ) : ""}
 
-        <div className='flex mt-24 px-10'>
-          <div>
-        <p className=" font-bold text-xl">Plan your Trip</p>
+        <div className='flex px-10 items-center overflow-hidden ' style={{ maxHeight: '400px' }}>
+          <div >
+        <p className=" font-bold text-3xl">Plan your Trip</p>
         <p className="my-4 text-5xl font-bold">Save <span className='text-red-500'>big</span> with our car rental</p>
 <p className="my-4 text-neutral-500">Rent the car of your dreams. Unbeatable prices, unlimited miles, flexible pick-up options and much more.</p>
 <div className='space-x-4 text-neutral-500 flex items-center'>
             <a className='bg-red-500 text-neutral-50 mb-5 px-4 py-2 rounded'>Book Your Ride →</a>
           </div>
 </div>
-        <img src={car} className="xs:hidden md:block" style={{width:'700px'}}/>
+        <img src={car} className="xs:hidden md:block w-5/12 " />
         </div>
-        </div>
+        {/* </div> */}
     <div className='bg-custom-image h-full'>
       <p className='ml-12 pt-12 font-bold text-3xl'>Book a car</p>
       <div className='sm:grid sm:grid-cols-3 mt-4 py-12 px-12'>
@@ -237,8 +249,10 @@ function App() {
     {/* {showForm && <Form car={cars}/>} */}
     
     </div>
-    {showForm &&  <Form car={cars} handleButtonClick={handleButtonClick} CloseForm={CloseForm}selectCar={selectCar} setSelectCar={setSelectCar} selectPickUp={selectPickUp} selectDropOff={selectDropOff} 
+    <Cprovider.Provider value={cars}>
+    {showForm &&  <Form  handleButtonClick={handleButtonClick} CloseForm={CloseForm}selectCar={selectCar} setSelectCar={setSelectCar} selectPickUp={selectPickUp} selectDropOff={selectDropOff} 
     selectPickUpDate={selectPickUpDate} selectDropOffDate={selectDropOffDate}/>}
+    </Cprovider.Provider>
     <Plan/>
     <Features/>
     <Testimonials/>

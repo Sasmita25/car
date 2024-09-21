@@ -1,7 +1,7 @@
 import './index.css';
 import car from './images/carr.png';
 import logo from './images/logo.png';
-import { useState,useEffect } from 'react';
+import { useState,useEffect,createContext } from 'react';
 import axios from 'axios';
 import Form from './form';
 import Plan from './Plan';
@@ -46,7 +46,7 @@ function Appp() {
     };
     fetchData();
   }, []);
-
+  const Cprovider=createContext();
   // const handleButtonClick = () => {
   //   setShowForm(!showForm);
   //    console.log("handleButtonClick executed");
@@ -223,8 +223,10 @@ function Appp() {
     {/* {showForm && <Form car={cars}/>} */}
     
     </div>
-    {showForm &&  <Form car={cars} handleButtonClick={handleButtonClick} selectCar={selectCar} setSelectCar={setSelectCar} selectPickUp={selectPickUp} selectDropOff={selectDropOff} 
+    <Cprovider.Provider value={cars}>
+    {showForm &&  <Form handleButtonClick={handleButtonClick} selectCar={selectCar} setSelectCar={setSelectCar} selectPickUp={selectPickUp} selectDropOff={selectDropOff} 
     selectPickUpDate={selectPickUpDate} selectDropOffDate={selectDropOffDate}/>}
+    </Cprovider.Provider>
     <Plan/>
     <Features/>
     <Testimonials/>

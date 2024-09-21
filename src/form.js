@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import axios from 'axios';
+import { Cprovider } from "./App1";
 
 export default function Form({ selectCar, selectPickUp, selectDropOff, selectPickUpDate, selectDropOffDate, handleButtonClick,CloseForm, showForm }) {
   const [book, setBook] = useState({
@@ -40,7 +41,7 @@ export default function Form({ selectCar, selectPickUp, selectDropOff, selectPic
   const handleZip = (e) => {
     setBook({ ...book, zipcode: e.target.value });
   };
-
+  const c=useContext(Cprovider);
   const onSubmit = async (e) => {
     e.preventDefault();
     setFirstMsg("");
@@ -146,7 +147,7 @@ export default function Form({ selectCar, selectPickUp, selectDropOff, selectPic
     // if (firstMsg || lastMsg || cityMsg) {
     //   return; // Abort form submission
     // }
-  
+    console.log(c,"ghjghjg");
     console.log(bookingData);
     if (validation){
     try {
@@ -163,7 +164,7 @@ export default function Form({ selectCar, selectPickUp, selectDropOff, selectPic
   }
   };
 
-  console.log(book);
+  console.log(c,book);
 
   return (
     <div className={`pointer-events-auto ${showForm ? 'fixed inset-0 bg-gray-200 bg-opacity-25' : ''}`}>
